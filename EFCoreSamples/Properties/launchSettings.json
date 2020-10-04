@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "SimpleOData": {
+    "EFCoreSamples": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger/index.html",
