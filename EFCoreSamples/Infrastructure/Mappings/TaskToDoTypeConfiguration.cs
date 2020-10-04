@@ -14,7 +14,7 @@ namespace EFCoreSamples.Infrastructure.Mappings
             builder.Property(p => p.Status).IsRequired();
 
             // Relations
-            // builder.HasMany(p => p.Skills).WithOne().HasForeignKey(e => e.TaskToDoId);
+            builder.HasMany(p => p.Skills).WithOne().HasForeignKey(e => e.TaskToDoId);
         }
     }
 }

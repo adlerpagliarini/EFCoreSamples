@@ -1,13 +1,13 @@
 ﻿using EFCoreSamples.Domain.Entity;
 using EFCoreSamples.Domain.Enums;
 using EFCoreSamples.Domain.ValueObjects;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
-namespace EFCoreSamples.Domain
+namespace EFCoreSamples.Domain.Developers
 {
-    public class Developer : Identity<Developer, DevCode>
+    public abstract class Developer : Identity<Developer, DevCode>
     {
         public Developer(DevCode id, string name, DevType devType)
         {
@@ -30,6 +30,7 @@ namespace EFCoreSamples.Domain
         public void AddItemToDo(TaskToDo todo)
         {
             var _todo = new TaskToDo(todo.Title, todo.Start, todo.DeadLine, todo.Status, todo.DeveloperId);
+            todo.Skills.ToList().ForEach(e => _todo.SetSkill(e));
             _tasksToDo.Add(_todo);
         }
     }

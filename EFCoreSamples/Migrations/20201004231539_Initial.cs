@@ -13,7 +13,13 @@ namespace EFCoreSamples.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(type: "varchar(50)", nullable: false),
-                    DevType = table.Column<int>(nullable: false)
+                    DevType = table.Column<int>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    DatabaseStack = table.Column<bool>(nullable: true),
+                    DatabasePreference = table.Column<string>(nullable: true),
+                    MobileStack = table.Column<bool>(nullable: true),
+                    MobileSystem = table.Column<string>(nullable: true),
+                    CloudPreference = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -26,7 +32,7 @@ namespace EFCoreSamples.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(type: "varchar(50)", nullable: false),
                     Start = table.Column<DateTime>(nullable: false),
                     DeadLine = table.Column<DateTime>(nullable: false),
                     Status = table.Column<bool>(nullable: false),
@@ -49,7 +55,7 @@ namespace EFCoreSamples.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(type: "varchar(50)", nullable: false),
                     TaskToDoId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>

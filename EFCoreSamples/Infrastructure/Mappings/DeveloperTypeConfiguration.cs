@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using EFCoreSamples.Domain;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using EFCoreSamples.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using EFCoreSamples.Domain.Developers;
 
 namespace EFCoreSamples.Infrastructure.Mappings
 {

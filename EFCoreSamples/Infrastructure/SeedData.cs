@@ -1,4 +1,5 @@
 ﻿using EFCoreSamples.Domain;
+using EFCoreSamples.Domain.Developers;
 using EFCoreSamples.Domain.Enums;
 using EFCoreSamples.Domain.ValueObjects;
 using System;
@@ -29,17 +30,24 @@ namespace EFCoreSamples.Infrastructure
                 backendTask.SetSkill(skill_backend_1);
                 backendTask.SetSkill(skill_backend_2);
 
-                var frontend = new Developer(code1, "Adler Pagliarini", DevType.FrontEnd);
+                var frontend = new FrontEndDeveloper(code1, "Adler Pagliarini", DevType.FrontEnd, true, "IOS");
                 frontend.AddItemToDo(frontendTask);
 
-                var backend = new Developer(code2, "Pagliarini Nascimento", DevType.BackEnd);
+                var backend = new BackEndDeveloper(code2, "Pagliarini Nascimento", DevType.BackEnd, true, "Postgre");
                 backend.AddItemToDo(backendTask);
 
-                var fullstack = new Developer(code3, "Adler Nascimento", DevType.Fullstack);
+                var fullstack = new FullStackDeveloper(code3, "Adler Nascimento", DevType.Fullstack, "AWS");
                 fullstack.AddItemToDo(frontendTask);
                 fullstack.AddItemToDo(backendTask);
 
-                context.Developer.AddRange(frontend, backend, fullstack);
+                context.FrontEndDeveloper.Add(frontend);
+                context.BackEndDeveloper.Add(backend);
+                context.FullStackDeveloper.Add(fullstack);
+                var onTrack = context.ChangeTracker.Entries().ToList();
+                foreach (var item in onTrack)
+                {
+                    Console.WriteLine(item.GetType().Name);
+                }
                 context.SaveChanges();
             }
             catch (Exception ex)

@@ -19,13 +19,17 @@ namespace EFCoreSamples.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("EFCoreSamples.Domain.Developer", b =>
+            modelBuilder.Entity("EFCoreSamples.Domain.Developers.Developer", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("DevType")
                         .HasColumnType("int");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -34,6 +38,8 @@ namespace EFCoreSamples.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Developer");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Developer");
                 });
 
             modelBuilder.Entity("EFCoreSamples.Domain.Skill", b =>
@@ -47,7 +53,8 @@ namespace EFCoreSamples.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("Id");
 
@@ -76,13 +83,50 @@ namespace EFCoreSamples.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DeveloperId");
 
                     b.ToTable("TaskToDo");
+                });
+
+            modelBuilder.Entity("EFCoreSamples.Domain.Developers.BackEndDeveloper", b =>
+                {
+                    b.HasBaseType("EFCoreSamples.Domain.Developers.Developer");
+
+                    b.Property<string>("DatabasePreference")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("DatabaseStack")
+                        .HasColumnType("bit");
+
+                    b.HasDiscriminator().HasValue("BackEndDeveloper");
+                });
+
+            modelBuilder.Entity("EFCoreSamples.Domain.Developers.FrontEndDeveloper", b =>
+                {
+                    b.HasBaseType("EFCoreSamples.Domain.Developers.Developer");
+
+                    b.Property<bool>("MobileStack")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MobileSystem")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("FrontEndDeveloper");
+                });
+
+            modelBuilder.Entity("EFCoreSamples.Domain.Developers.FullStackDeveloper", b =>
+                {
+                    b.HasBaseType("EFCoreSamples.Domain.Developers.Developer");
+
+                    b.Property<string>("CloudPreference")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("FullStackDeveloper");
                 });
 
             modelBuilder.Entity("EFCoreSamples.Domain.Skill", b =>
@@ -96,7 +140,7 @@ namespace EFCoreSamples.Migrations
 
             modelBuilder.Entity("EFCoreSamples.Domain.TaskToDo", b =>
                 {
-                    b.HasOne("EFCoreSamples.Domain.Developer", null)
+                    b.HasOne("EFCoreSamples.Domain.Developers.Developer", null)
                         .WithMany("TasksToDo")
                         .HasForeignKey("DeveloperId");
                 });

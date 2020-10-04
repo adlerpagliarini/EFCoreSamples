@@ -9,7 +9,11 @@
         }
         public TId Id { get; protected set; }
         protected IdentityValidator<TEntity, TId> Validator { get; private set; }
-        public virtual bool IsValid() => true;
+        public virtual bool IsValid()
+        {
+            var validationResult = Validator.Validate(this as TEntity);
+            return validationResult.IsValid;
+        }
         public override bool Equals(object obj)
         {
             var compareTo = obj as Identity<TEntity, TId>;

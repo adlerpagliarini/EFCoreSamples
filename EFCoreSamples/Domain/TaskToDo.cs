@@ -1,6 +1,5 @@
 ﻿using EFCoreSamples.Domain.Entity;
 using EFCoreSamples.Domain.ValueObjects;
-using Microsoft.VisualBasic;
 using System;
 using System.Collections.ObjectModel;
 
