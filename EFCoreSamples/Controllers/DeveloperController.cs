@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using EFCoreSamples.Infrastructure;
+using System.Linq;
 
 namespace EFCoreSamples.Controllers
 {
@@ -26,7 +27,8 @@ namespace EFCoreSamples.Controllers
             var response = await _databaseContext
                 .Developer
                     .Include(e => e.TasksToDo)
-                        .ThenInclude(e => e.Skills)
+                        .ThenInclude(e => e.TaskToDoSkills)
+                            .ThenInclude(e => e.Skill)
                 .ToListAsync();
             return Ok(response);
         }
@@ -37,7 +39,8 @@ namespace EFCoreSamples.Controllers
             var response = await _databaseContext
                 .FrontEndDeveloper
                     .Include(e => e.TasksToDo)
-                        .ThenInclude(e => e.Skills)
+                        .ThenInclude(e => e.TaskToDoSkills)
+                            .ThenInclude(e => e.Skill)
                 .ToListAsync();
             return Ok(response);
         }
@@ -48,7 +51,8 @@ namespace EFCoreSamples.Controllers
             var response = await _databaseContext
                 .BackEndDeveloper
                     .Include(e => e.TasksToDo)
-                        .ThenInclude(e => e.Skills)
+                        .ThenInclude(e => e.TaskToDoSkills)
+                            .ThenInclude(e => e.Skill)
                 .ToListAsync();
             return Ok(response);
         }
@@ -59,7 +63,8 @@ namespace EFCoreSamples.Controllers
             var response = await _databaseContext
                 .FullStackDeveloper
                     .Include(e => e.TasksToDo)
-                        .ThenInclude(e => e.Skills)
+                        .ThenInclude(e => e.TaskToDoSkills)
+                            .ThenInclude(e => e.Skill)
                 .ToListAsync();
             return Ok(response);
         }

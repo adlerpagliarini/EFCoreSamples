@@ -12,9 +12,6 @@ namespace EFCoreSamples.Infrastructure.Mappings
             builder.Property(p => p.Title).HasColumnType("varchar(50)").IsRequired();
             builder.Property(p => p.DeadLine).IsRequired();
             builder.Property(p => p.Status).IsRequired();
-
-            // Relations
-            builder.HasMany(p => p.Skills).WithOne().HasForeignKey(e => e.TaskToDoId);
         }
     }
 }

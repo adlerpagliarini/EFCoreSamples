@@ -27,6 +27,19 @@ namespace EFCoreSamples.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Skill",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "varchar(50)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Skill", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TaskToDo",
                 columns: table => new
                 {
@@ -50,19 +63,23 @@ namespace EFCoreSamples.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Skill",
+                name: "SkillTaskToDo",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "varchar(50)", nullable: false),
+                    SkillId = table.Column<long>(nullable: false),
                     TaskToDoId = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Skill", x => x.Id);
+                    table.PrimaryKey("PK_SkillTaskToDo", x => new { x.TaskToDoId, x.SkillId });
                     table.ForeignKey(
-                        name: "FK_Skill_TaskToDo_TaskToDoId",
+                        name: "FK_SkillTaskToDo_Skill_SkillId",
+                        column: x => x.SkillId,
+                        principalTable: "Skill",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SkillTaskToDo_TaskToDo_TaskToDoId",
                         column: x => x.TaskToDoId,
                         principalTable: "TaskToDo",
                         principalColumn: "Id",
@@ -70,9 +87,9 @@ namespace EFCoreSamples.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Skill_TaskToDoId",
-                table: "Skill",
-                column: "TaskToDoId");
+                name: "IX_SkillTaskToDo_SkillId",
+                table: "SkillTaskToDo",
+                column: "SkillId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaskToDo_DeveloperId",
@@ -82,6 +99,9 @@ namespace EFCoreSamples.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "SkillTaskToDo");
+
             migrationBuilder.DropTable(
                 name: "Skill");
 
