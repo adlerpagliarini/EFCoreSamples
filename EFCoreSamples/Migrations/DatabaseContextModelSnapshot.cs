@@ -15,9 +15,9 @@ namespace EFCoreSamples.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8")
+                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "5.0.0-rc.1.20451.13");
 
             modelBuilder.Entity("EFCoreSamples.Domain.Developers.Developer", b =>
                 {
@@ -27,10 +27,6 @@ namespace EFCoreSamples.Migrations
                     b.Property<int>("DevType")
                         .HasColumnType("int");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
@@ -38,8 +34,6 @@ namespace EFCoreSamples.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Developer");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Developer");
                 });
 
             modelBuilder.Entity("EFCoreSamples.Domain.Skill", b =>
@@ -47,7 +41,7 @@ namespace EFCoreSamples.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -63,7 +57,7 @@ namespace EFCoreSamples.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<DateTime>("DeadLine")
                         .HasColumnType("datetime2");
@@ -113,7 +107,7 @@ namespace EFCoreSamples.Migrations
                     b.Property<bool>("DatabaseStack")
                         .HasColumnType("bit");
 
-                    b.HasDiscriminator().HasValue("BackEndDeveloper");
+                    b.ToTable("BackEndDeveloper");
                 });
 
             modelBuilder.Entity("EFCoreSamples.Domain.Developers.FrontEndDeveloper", b =>
@@ -126,7 +120,7 @@ namespace EFCoreSamples.Migrations
                     b.Property<string>("MobileSystem")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("FrontEndDeveloper");
+                    b.ToTable("FrontEndDeveloper");
                 });
 
             modelBuilder.Entity("EFCoreSamples.Domain.Developers.FullStackDeveloper", b =>
@@ -136,7 +130,7 @@ namespace EFCoreSamples.Migrations
                     b.Property<string>("CloudPreference")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("FullStackDeveloper");
+                    b.ToTable("FullStackDeveloper");
                 });
 
             modelBuilder.Entity("EFCoreSamples.Domain.TaskToDo", b =>
@@ -159,6 +153,47 @@ namespace EFCoreSamples.Migrations
                         .HasForeignKey("TaskToDoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Skill");
+
+                    b.Navigation("TaskToDo");
+                });
+
+            modelBuilder.Entity("EFCoreSamples.Domain.Developers.BackEndDeveloper", b =>
+                {
+                    b.HasOne("EFCoreSamples.Domain.Developers.Developer", null)
+                        .WithOne()
+                        .HasForeignKey("EFCoreSamples.Domain.Developers.BackEndDeveloper", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EFCoreSamples.Domain.Developers.FrontEndDeveloper", b =>
+                {
+                    b.HasOne("EFCoreSamples.Domain.Developers.Developer", null)
+                        .WithOne()
+                        .HasForeignKey("EFCoreSamples.Domain.Developers.FrontEndDeveloper", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EFCoreSamples.Domain.Developers.FullStackDeveloper", b =>
+                {
+                    b.HasOne("EFCoreSamples.Domain.Developers.Developer", null)
+                        .WithOne()
+                        .HasForeignKey("EFCoreSamples.Domain.Developers.FullStackDeveloper", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EFCoreSamples.Domain.Developers.Developer", b =>
+                {
+                    b.Navigation("TasksToDo");
+                });
+
+            modelBuilder.Entity("EFCoreSamples.Domain.TaskToDo", b =>
+                {
+                    b.Navigation("TaskToDoSkills");
                 });
 #pragma warning restore 612, 618
         }

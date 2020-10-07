@@ -21,6 +21,9 @@ namespace EFCoreSamples.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new DeveloperTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new FrontEndDeveloperTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new BackEndDeveloperTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new FullStackDeveloperTypeConfiguration());
             modelBuilder.ApplyConfiguration(new TaskToDoTypeConfiguration());
             modelBuilder.ApplyConfiguration(new SkillTypeConfiguration());
             modelBuilder.ApplyConfiguration(new TaskToDoSkillTypeConfiguration());
