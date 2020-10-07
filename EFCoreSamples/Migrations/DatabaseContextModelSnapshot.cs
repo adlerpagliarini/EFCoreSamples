@@ -82,17 +82,17 @@ namespace EFCoreSamples.Migrations
                     b.ToTable("TaskToDo");
                 });
 
-            modelBuilder.Entity("EFCoreSamples.Domain.TaskToDoSkill", b =>
+            modelBuilder.Entity("SkillTaskToDo", b =>
                 {
-                    b.Property<long>("TaskToDoId")
+                    b.Property<long>("SkillsId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("SkillId")
+                    b.Property<long>("TasksToDoId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("TaskToDoId", "SkillId");
+                    b.HasKey("SkillsId", "TasksToDoId");
 
-                    b.HasIndex("SkillId");
+                    b.HasIndex("TasksToDoId");
 
                     b.ToTable("SkillTaskToDo");
                 });
@@ -140,23 +140,19 @@ namespace EFCoreSamples.Migrations
                         .HasForeignKey("DeveloperId");
                 });
 
-            modelBuilder.Entity("EFCoreSamples.Domain.TaskToDoSkill", b =>
+            modelBuilder.Entity("SkillTaskToDo", b =>
                 {
-                    b.HasOne("EFCoreSamples.Domain.Skill", "Skill")
+                    b.HasOne("EFCoreSamples.Domain.Skill", null)
                         .WithMany()
-                        .HasForeignKey("SkillId")
+                        .HasForeignKey("SkillsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EFCoreSamples.Domain.TaskToDo", "TaskToDo")
-                        .WithMany("TaskToDoSkills")
-                        .HasForeignKey("TaskToDoId")
+                    b.HasOne("EFCoreSamples.Domain.TaskToDo", null)
+                        .WithMany()
+                        .HasForeignKey("TasksToDoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Skill");
-
-                    b.Navigation("TaskToDo");
                 });
 
             modelBuilder.Entity("EFCoreSamples.Domain.Developers.BackEndDeveloper", b =>
@@ -189,11 +185,6 @@ namespace EFCoreSamples.Migrations
             modelBuilder.Entity("EFCoreSamples.Domain.Developers.Developer", b =>
                 {
                     b.Navigation("TasksToDo");
-                });
-
-            modelBuilder.Entity("EFCoreSamples.Domain.TaskToDo", b =>
-                {
-                    b.Navigation("TaskToDoSkills");
                 });
 #pragma warning restore 612, 618
         }

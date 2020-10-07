@@ -27,8 +27,7 @@ namespace EFCoreSamples.Controllers
             var response = await _databaseContext
                 .Developer
                     .Include(e => e.TasksToDo)
-                        .ThenInclude(e => e.TaskToDoSkills)
-                            .ThenInclude(e => e.Skill)
+                            .ThenInclude(e => e.Skills)
                 .ToListAsync();
             return Ok(response);
         }
@@ -39,8 +38,7 @@ namespace EFCoreSamples.Controllers
             var response = await _databaseContext
                 .FrontEndDeveloper
                     .Include(e => e.TasksToDo)
-                        .ThenInclude(e => e.TaskToDoSkills)
-                            .ThenInclude(e => e.Skill)
+                        .ThenInclude(e => e.Skills)
                 .ToListAsync();
             return Ok(response);
         }
@@ -51,8 +49,7 @@ namespace EFCoreSamples.Controllers
             var response = await _databaseContext
                 .BackEndDeveloper
                     .Include(e => e.TasksToDo)
-                        .ThenInclude(e => e.TaskToDoSkills)
-                            .ThenInclude(e => e.Skill)
+                        .ThenInclude(e => e.Skills)
                 .ToListAsync();
             return Ok(response);
         }
@@ -63,8 +60,7 @@ namespace EFCoreSamples.Controllers
             var response = await _databaseContext
                 .FullStackDeveloper
                     .Include(e => e.TasksToDo)
-                        .ThenInclude(e => e.TaskToDoSkills)
-                            .ThenInclude(e => e.Skill)
+                        .ThenInclude(e => e.Skills)
                 .ToListAsync();
             return Ok(response);
         }

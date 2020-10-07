@@ -15,6 +15,8 @@ namespace EFCoreSamples.Domain
 
         public string Title { get; protected set; }
 
+        public virtual Collection<TaskToDo> TasksToDo { get; protected set; }
+
         public override bool IsValid()
         {
             Validator.RuleFor(e => e.Title).NotEmpty();

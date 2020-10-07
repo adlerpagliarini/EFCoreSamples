@@ -116,30 +116,30 @@ namespace EFCoreSamples.Migrations
                 name: "SkillTaskToDo",
                 columns: table => new
                 {
-                    SkillId = table.Column<long>(type: "bigint", nullable: false),
-                    TaskToDoId = table.Column<long>(type: "bigint", nullable: false)
+                    SkillsId = table.Column<long>(type: "bigint", nullable: false),
+                    TasksToDoId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SkillTaskToDo", x => new { x.TaskToDoId, x.SkillId });
+                    table.PrimaryKey("PK_SkillTaskToDo", x => new { x.SkillsId, x.TasksToDoId });
                     table.ForeignKey(
-                        name: "FK_SkillTaskToDo_Skill_SkillId",
-                        column: x => x.SkillId,
+                        name: "FK_SkillTaskToDo_Skill_SkillsId",
+                        column: x => x.SkillsId,
                         principalTable: "Skill",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SkillTaskToDo_TaskToDo_TaskToDoId",
-                        column: x => x.TaskToDoId,
+                        name: "FK_SkillTaskToDo_TaskToDo_TasksToDoId",
+                        column: x => x.TasksToDoId,
                         principalTable: "TaskToDo",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_SkillTaskToDo_SkillId",
+                name: "IX_SkillTaskToDo_TasksToDoId",
                 table: "SkillTaskToDo",
-                column: "SkillId");
+                column: "TasksToDoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaskToDo_DeveloperId",
