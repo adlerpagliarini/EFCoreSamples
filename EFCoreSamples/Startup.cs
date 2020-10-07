@@ -31,7 +31,7 @@ namespace EFCoreSamples
                 c.SwaggerDoc("v1",
                     new OpenApiInfo
                     {
-                        Title = "EF Core 3.1.8 Samples",
+                        Title = "EF Core 5 Samples",
                         Version = "v1"
                     });
             });
