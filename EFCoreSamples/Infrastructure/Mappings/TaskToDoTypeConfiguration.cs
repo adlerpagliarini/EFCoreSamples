@@ -12,7 +12,10 @@ namespace EFCoreSamples.Infrastructure.Mappings
             builder.Property(p => p.Title).HasColumnType("varchar(50)").IsRequired();
             builder.Property(p => p.DeadLine).IsRequired();
             builder.Property(p => p.Status).IsRequired();
-            builder.HasMany(e => e.Skills).WithMany(e => e.TasksToDo);
+            builder.HasMany(e => e.Skills).WithMany(e => e.TasksToDo)
+                .UsingEntity<TaskToDoSkill>(
+                e => e.HasOne(p => p.Skill).WithMany().HasForeignKey(p => p.SkillsId),
+                e => e.HasOne(p => p.TaskToDo).WithMany().HasForeignKey(p => p.TasksToDoId));
         }
     }
 }

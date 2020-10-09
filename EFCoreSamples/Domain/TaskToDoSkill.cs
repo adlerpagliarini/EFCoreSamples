@@ -16,8 +16,8 @@ namespace EFCoreSamples.Domain
 
         }
 
-        public long SkillId { get; protected set; }
-        public long TaskToDoId { get; protected set; }
+        public long SkillsId { get; protected set; }
+        public long TasksToDoId { get; protected set; }
         public virtual Skill Skill { get; protected set; }
         public virtual TaskToDo TaskToDo { get; protected set; }
     }

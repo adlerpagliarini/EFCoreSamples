@@ -82,7 +82,7 @@ namespace EFCoreSamples.Migrations
                     b.ToTable("TaskToDo");
                 });
 
-            modelBuilder.Entity("SkillTaskToDo", b =>
+            modelBuilder.Entity("EFCoreSamples.Domain.TaskToDoSkill", b =>
                 {
                     b.Property<long>("SkillsId")
                         .HasColumnType("bigint");
@@ -140,19 +140,23 @@ namespace EFCoreSamples.Migrations
                         .HasForeignKey("DeveloperId");
                 });
 
-            modelBuilder.Entity("SkillTaskToDo", b =>
+            modelBuilder.Entity("EFCoreSamples.Domain.TaskToDoSkill", b =>
                 {
-                    b.HasOne("EFCoreSamples.Domain.Skill", null)
+                    b.HasOne("EFCoreSamples.Domain.Skill", "Skill")
                         .WithMany()
                         .HasForeignKey("SkillsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EFCoreSamples.Domain.TaskToDo", null)
+                    b.HasOne("EFCoreSamples.Domain.TaskToDo", "TaskToDo")
                         .WithMany()
                         .HasForeignKey("TasksToDoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Skill");
+
+                    b.Navigation("TaskToDo");
                 });
 
             modelBuilder.Entity("EFCoreSamples.Domain.Developers.BackEndDeveloper", b =>
