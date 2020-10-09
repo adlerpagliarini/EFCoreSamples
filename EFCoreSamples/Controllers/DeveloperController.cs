@@ -107,5 +107,13 @@ namespace EFCoreSamples.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("Lazy-Loading")]
+        public async Task<IActionResult> GetLazyLoading()
+        {
+            var response = await _databaseContext.Developer.ToListAsync();
+            response.ForEach(e => e.HowIAm());
+            return Ok(response);
+        }
     }
 }

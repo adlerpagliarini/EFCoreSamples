@@ -39,6 +39,7 @@ namespace EFCoreSamples.Infrastructure
 
             optionsBuilder
                 .AddInterceptors(new ContextChangesInterceptor(), new CommandInterceptor())
+                .UseLazyLoadingProxies()
                 .UseSqlServer(config.GetConnectionString("DefaultConnection"))
                 .UseLoggerFactory(MyLoggerFactory);
         }
