@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using EFCoreSamples.Domain;
+using EFCoreSamples.Domain.Developers;
 
 namespace EFCoreSamples.Infrastructure.Mappings
 {
@@ -13,6 +14,9 @@ namespace EFCoreSamples.Infrastructure.Mappings
             builder.Property(p => p.DeadLine).IsRequired();
             builder.Property(p => p.Status).IsRequired();
             builder.HasMany(e => e.Skills).WithMany(e => e.TasksToDo);
+
+            builder.HasOne<Developer>().WithMany(e => e.TasksToDo).HasForeignKey(k => k.DeveloperId);
+
         }
     }
 }

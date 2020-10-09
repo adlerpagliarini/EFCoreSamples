@@ -1,6 +1,7 @@
 ﻿using EFCoreSamples.Domain.Enums;
 using EFCoreSamples.Domain.ValueObjects;
 using FluentValidation;
+using System;
 
 namespace EFCoreSamples.Domain.Developers
 {
@@ -17,6 +18,12 @@ namespace EFCoreSamples.Domain.Developers
 
         public bool MobileStack { get; protected set; }
         public string MobileSystem { get; protected set; }
+
+        public override void HowIAm()
+        {
+            Console.WriteLine($"I'm a {nameof(FrontEndDeveloper)} and I'm able to UX on {MobileSystem}.");
+        }
+
         public override bool IsValid()
         {
             Validator.RuleFor(e => e.DevType).Must(e => e == DevType.FrontEnd).WithMessage("Must be a FrontEnd Developer");

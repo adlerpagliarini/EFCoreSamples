@@ -1,6 +1,7 @@
 ﻿using EFCoreSamples.Domain.Enums;
 using EFCoreSamples.Domain.ValueObjects;
 using FluentValidation;
+using System;
 
 namespace EFCoreSamples.Domain.Developers
 {
@@ -17,6 +18,12 @@ namespace EFCoreSamples.Domain.Developers
 
         public bool DatabaseStack { get; protected set; }
         public string DatabasePreference { get; protected set; }
+
+        public override void HowIAm()
+        {
+            Console.WriteLine($"I'm a {nameof(BackEndDeveloper)} and I've preference for {DatabasePreference} databases.");
+        }
+
         public override bool IsValid()
         {
             Validator.RuleFor(e => e.DevType).Must(e => e == DevType.BackEnd).WithMessage("Must be a BackEnd Developer");

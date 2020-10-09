@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using EFCoreSamples.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using EFCoreSamples.Domain.Developers;
+using EFCoreSamples.Domain;
 
 namespace EFCoreSamples.Infrastructure.Mappings
 {
@@ -27,32 +28,9 @@ namespace EFCoreSamples.Infrastructure.Mappings
 
             // Relations
             builder.HasMany(t => t.TasksToDo).WithOne().HasForeignKey(k => k.DeveloperId);
+            builder.HasOne(t => t.Motivation).WithOne().HasForeignKey<Motivation>(k => k.DeveloperId);
 
             builder.ToTable(nameof(Developer));
-        }
-    }
-
-    public class FrontEndDeveloperTypeConfiguration : IEntityTypeConfiguration<FrontEndDeveloper>
-    {
-        public void Configure(EntityTypeBuilder<FrontEndDeveloper> builder)
-        {
-            builder.ToTable(nameof(FrontEndDeveloper));
-        }
-    }
-
-    public class BackEndDeveloperTypeConfiguration : IEntityTypeConfiguration<BackEndDeveloper>
-    {
-        public void Configure(EntityTypeBuilder<BackEndDeveloper> builder)
-        {
-            builder.ToTable(nameof(BackEndDeveloper));
-        }
-    }
-
-    public class FullStackDeveloperTypeConfiguration : IEntityTypeConfiguration<FullStackDeveloper>
-    {
-        public void Configure(EntityTypeBuilder<FullStackDeveloper> builder)
-        {
-            builder.ToTable(nameof(FullStackDeveloper));
         }
     }
 }

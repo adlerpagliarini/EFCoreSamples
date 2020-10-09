@@ -4,14 +4,16 @@ using EFCoreSamples.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFCoreSamples.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20201009031128_Motivation")]
+    partial class Motivation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -209,24 +211,6 @@ namespace EFCoreSamples.Migrations
                         .HasForeignKey("EFCoreSamples.Domain.Developers.FullStackDeveloper", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
-
-                    b.OwnsOne("EFCoreSamples.Domain.ExtraMotivation", "ExtraMotivation", b1 =>
-                        {
-                            b1.Property<string>("FullStackDeveloperId")
-                                .HasColumnType("nvarchar(450)");
-
-                            b1.Property<string>("ExtraFactor")
-                                .HasColumnType("varchar(50)");
-
-                            b1.HasKey("FullStackDeveloperId");
-
-                            b1.ToTable("FullStackDeveloper");
-
-                            b1.WithOwner()
-                                .HasForeignKey("FullStackDeveloperId");
-                        });
-
-                    b.Navigation("ExtraMotivation");
                 });
 
             modelBuilder.Entity("EFCoreSamples.Domain.Developers.Developer", b =>

@@ -1,6 +1,7 @@
 ﻿using EFCoreSamples.Domain.Enums;
 using EFCoreSamples.Domain.ValueObjects;
 using FluentValidation;
+using System;
 
 namespace EFCoreSamples.Domain.Developers
 {
@@ -15,6 +16,18 @@ namespace EFCoreSamples.Domain.Developers
         }
 
         public string CloudPreference { get; protected set; }
+
+        public ExtraMotivation ExtraMotivation { get; protected set; }
+
+        public void SetMotivation(ExtraMotivation extraMotivation)
+        {
+            ExtraMotivation = extraMotivation;
+        }
+
+        public override void HowIAm()
+        {
+            Console.WriteLine($"I'm a {nameof(FullStackDeveloper)} and I've preference for {CloudPreference} provider.");
+        }
 
         public override bool IsValid()
         {

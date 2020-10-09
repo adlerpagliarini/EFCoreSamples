@@ -21,6 +21,7 @@ namespace EFCoreSamples.Domain.Developers
         public DevType DevType { get; protected set; }
         private ICollection<TaskToDo> _tasksToDo { get; set; }
         public virtual IReadOnlyCollection<TaskToDo> TasksToDo { get { return _tasksToDo as Collection<TaskToDo>; } }
+        public Motivation Motivation { get; protected set; }
 
         protected Developer()
         {
@@ -29,9 +30,17 @@ namespace EFCoreSamples.Domain.Developers
 
         public void AddItemToDo(TaskToDo todo)
         {
-            var _todo = new TaskToDo(todo.Title, todo.Start, todo.DeadLine, todo.Status, todo.DeveloperId);            
+            var _todo = new TaskToDo(todo.Title, todo.Start, todo.DeadLine, todo.Status, todo.DeveloperId);
             todo.Skills.ToList().ForEach(e => _todo.SetSkill(e));
             _tasksToDo.Add(_todo);
         }
+
+        public void SetMotivation(Motivation motivation)
+        {
+            var _motivation = new Motivation(motivation.Factor, Id);
+            Motivation = _motivation;
+        }
+
+        public abstract void HowIAm();
     }
 }

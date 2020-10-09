@@ -15,8 +15,7 @@ namespace EFCoreSamples.Infrastructure
         public DbSet<FrontEndDeveloper> FrontEndDeveloper { get; set; }
         public DbSet<BackEndDeveloper> BackEndDeveloper { get; set; }
         public DbSet<TaskToDo> TaskToDo { get; set; }
-        public DbSet<Skill> Skill { get; set; }
-        // public DbSet<TaskToDoSkill> SkillTaskToDo { get; set; }
+        public DbSet<Skill> Skill { get; set; }        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,7 +25,6 @@ namespace EFCoreSamples.Infrastructure
             modelBuilder.ApplyConfiguration(new FullStackDeveloperTypeConfiguration());
             modelBuilder.ApplyConfiguration(new TaskToDoTypeConfiguration());
             modelBuilder.ApplyConfiguration(new SkillTypeConfiguration());
-            // modelBuilder.ApplyConfiguration(new TaskToDoSkillTypeConfiguration());
             base.OnModelCreating(modelBuilder);
         }
 
