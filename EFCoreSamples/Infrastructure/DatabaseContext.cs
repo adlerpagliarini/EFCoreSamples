@@ -5,6 +5,7 @@ using EFCoreSamples.Domain;
 using EFCoreSamples.Infrastructure.Mappings;
 using System.IO;
 using EFCoreSamples.Domain.Developers;
+using EFCoreSamples.Infrastructure.Interceptors;
 
 namespace EFCoreSamples.Infrastructure
 {
@@ -36,7 +37,9 @@ namespace EFCoreSamples.Infrastructure
                 .Build();
 
 
-            optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"))
+            optionsBuilder
+                .AddInterceptors(new ContextChangesInterceptor(), new CommandInterceptor())
+                .UseSqlServer(config.GetConnectionString("DefaultConnection"))
                 .UseLoggerFactory(MyLoggerFactory);
         }
 

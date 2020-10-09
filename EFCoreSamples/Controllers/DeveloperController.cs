@@ -94,5 +94,18 @@ namespace EFCoreSamples.Controllers
             developers.ToList().ForEach(e => e.HowIAm());
             return Ok(developers);
         }
+
+        [HttpGet("QueryString")]
+        public IActionResult GetQueryString()
+        {
+            var response = _databaseContext
+                .Developer
+                    .Include(e => e.Motivation)
+                    .Include(e => e.TasksToDo)
+                            .ThenInclude(e => e.Skills)
+                .ToQueryString();
+
+            return Ok(response);
+        }
     }
 }

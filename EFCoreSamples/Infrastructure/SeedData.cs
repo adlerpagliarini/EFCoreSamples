@@ -2,6 +2,7 @@
 using EFCoreSamples.Domain.Developers;
 using EFCoreSamples.Domain.Enums;
 using EFCoreSamples.Domain.ValueObjects;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -11,6 +12,16 @@ namespace EFCoreSamples.Infrastructure
     {
         public static void SeedDatabase(DatabaseContext context)
         {
+            context.SavingChanges += (sender, args) =>
+            {
+                Console.WriteLine($"Event Saving changes for {((DbContext)sender).Database.GetConnectionString()}");
+            };
+
+            context.SavedChanges += (sender, args) =>
+            {
+                Console.WriteLine($"Event Saved {args.EntitiesSavedCount} changes for {((DbContext)sender).Database.GetConnectionString()}");
+            };
+
             try
             {
                 if (context.Developer.Any()) return;
