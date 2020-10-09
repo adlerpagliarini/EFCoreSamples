@@ -15,7 +15,7 @@ namespace EFCoreSamples.Infrastructure.Interceptors
             DbContextEventData eventData,
             InterceptionResult<int> result)
         {
-            Console.WriteLine($"Interceptor Saving changes for {eventData.Context.Database.GetConnectionString()}");
+            Console.WriteLine($"*** \n *** Interceptor Saving changes for {eventData.Context.Database.GetConnectionString()}");
 
             return result;
         }
@@ -25,7 +25,7 @@ namespace EFCoreSamples.Infrastructure.Interceptors
             InterceptionResult<int> result,
             CancellationToken cancellationToken = new CancellationToken())
         {
-            Console.WriteLine($"Interceptor Saving changes asynchronously for {eventData.Context.Database.GetConnectionString()}");
+            Console.WriteLine($"*** \n *** Interceptor Saving changes asynchronously for {eventData.Context.Database.GetConnectionString()}");
 
             return new ValueTask<InterceptionResult<int>>(result);
         }

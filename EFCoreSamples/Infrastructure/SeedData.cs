@@ -14,12 +14,12 @@ namespace EFCoreSamples.Infrastructure
         {
             context.SavingChanges += (sender, args) =>
             {
-                Console.WriteLine($"Event Saving changes for {((DbContext)sender).Database.GetConnectionString()}");
+                Console.WriteLine($"*** \n *** Event Saving changes for {((DbContext)sender).Database.GetConnectionString()}");
             };
 
             context.SavedChanges += (sender, args) =>
             {
-                Console.WriteLine($"Event Saved {args.EntitiesSavedCount} changes for {((DbContext)sender).Database.GetConnectionString()}");
+                Console.WriteLine($"*** \n *** Event Saved {args.EntitiesSavedCount} changes for {((DbContext)sender).Database.GetConnectionString()}");
             };
 
             try

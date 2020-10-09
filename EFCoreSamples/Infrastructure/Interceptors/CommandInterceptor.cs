@@ -14,9 +14,15 @@ namespace EFCoreSamples.Infrastructure.Interceptors
           CommandEventData eventData,
           InterceptionResult<DbDataReader> result)
         {
-            Console.WriteLine($"Interceptor Reader Command Execution");
             // command.CommandText += " OPTION (OPTIMIZE FOR UNKNOWN)";
             return result;
-        }    
+        }
+
+        public override ValueTask<DbDataReader> ReaderExecutedAsync(DbCommand command, CommandExecutedEventData eventData, DbDataReader result, CancellationToken cancellationToken = default)
+        {
+            Console.WriteLine($"*** \n *** Interceptor Reader ExecutionTime {eventData.Duration.TotalMilliseconds} ms. | {eventData.Duration.TotalSeconds} seconds.");            
+            return base.ReaderExecutedAsync(command, eventData, result, cancellationToken);
+        }
+
     }
 }
